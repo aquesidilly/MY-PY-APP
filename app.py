@@ -1,13 +1,17 @@
 import os
-from flask import Flask
+from flask import Flask,flash, redirect, url_for,request, session
+from flask_pymongo import Pymongo
+from bson.objectid import ObjectId
 if os.path.exists("envy.py"):
     import env
 
 app = Flask(__name__)
 # app.config['MONGO_URI'] = 'mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority'
 app.config['mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority'] = os.environ.get("mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority")
+app.config.from_object(Config)
+app.secret_key = os.environ.get("SECRET_KEY")
 
-
+mongo = PyMongo(app)
 
 
 @app.route('/')
