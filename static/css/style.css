@@ -1,4 +1,4 @@
-*!
+/*!
  * Start Bootstrap - style.css (https://startbootstrap.com/template-overviews/heroic-features)
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
@@ -6,6 +6,9 @@
 
 .card {
   height: 100%;
+}
+h1{
+    font-size: larger;
 }
 .jumbotron {
   background-image:url("static/images/bg.jpg");
