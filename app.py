@@ -7,7 +7,7 @@ if os.path.exists("envy.py"):
 
 app = Flask(__name__)
 # app.config['MONGO_URI'] = 'mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority'
-app.config[''] = os.environ.get("mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority")
+app.config['mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority'] = os.environ.get("mongodb+srv://PY-aquesidilly:Nanaosei@cluster0.xmxi1.mongodb.net/Dillly?retryWrites=true&w=majority")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
