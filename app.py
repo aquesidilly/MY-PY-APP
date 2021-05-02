@@ -1,6 +1,6 @@
 import os
 from flask import Flask,flash, redirect, url_for,request, session
-from Flask_pymongo import PyMongo 
+from flask_pymongo import PyMongo 
 from bson.objectid import ObjectId
 if os.path.exists("envy.py"):
     import env
