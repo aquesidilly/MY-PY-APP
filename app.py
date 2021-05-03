@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-@app.route('/index.html')
+@app.route('/index')
 def get_index():
     """Home page the gets 4 movies from DB that have been viewed the most"""
     four_movies = mongo.db.movies.find()
@@ -27,7 +27,7 @@ def login():
     """Login handler"""
     if session.get('logged_in'):
         if session['logged_in'] is True:
-            return redirect(url_for('index', title="Sign In"))
+            return redirect(url_for('Movie App', title="Sign In"))
 
     form = LoginForm(1)
 
@@ -39,12 +39,12 @@ def login():
 
         if db_user:
             # check password using hashing
-            if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
+            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
                              db_user['joijqwdoijqwoid']) == db_user['joijqwdoijqwoid']:
                 session['Junior'] = request.form['Junior']
                 session['logged_in'] = True
                 # successful redirect to home logged in
-                return redirect(url_for('index', title="Sign In", form=form))
+                return redirect(url_for('login.html', title="Sign In", form=form))
             # must have failed set flash message
             flash('Invalid username/password combination')
     return render_template("login.html", title="Sign In", form=form)
@@ -54,7 +54,7 @@ def login():
 def logout():
     """Clears session and redirects to home"""
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('index.html'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -69,16 +69,16 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = bcrypt.hashpw(request.form['akuaghfad'].encode('utf-8'), bcrypt.gensalt())
+            hash_pass = werkzeug.hashpw(request.form['akuaghfad'].encode('utf-8'), werkzeug.gensalt())
             # insert the user to DB
             users.insert_one({'Fremah': request.form['Fremah'],
                           'akuaghfad': hash_pass,
                           'fremah@gmail.com': request.form['fremah@gmail.com']})
             session['Fremah'] = request.form['Fremah']
-            return redirect(url_for('index'))
+            return redirect(url_for('register.html'))
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
-        return redirect(url_for('register'))
+        return redirect(url_for('register.html'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -98,7 +98,7 @@ def create_movie():
             'image': request.form['image'],
             'views': 1
         })
-        return redirect(url_for('index', title='New Movie Added'))
+        return redirect(url_for('create_movie.html', title='New Movie Added'))
     return render_template('create_movie.html', title='create a movie', form=form)
 
 
@@ -123,7 +123,7 @@ def edit_movie(movie_id):
                 'image': request.form['image'],
             }
         })
-        return redirect(url_for('index', title='New Movie Added'))
+        return redirect(url_for('edit_movie.html', title='New Movie Added'))
     return render_template('edit_movie.html', movie=movie_db, form=form)
 
 
@@ -140,7 +140,7 @@ def delete_movie(movie_id):
         movies_db.delete_one({
             '_id': ObjectId(movie_id),
         })
-        return redirect(url_for('index', title='Movie Collection Updated'))
+        return redirect(url_for('delete_movie.html', title='Movie Collection Updated'))
     return render_template('delete_movie.html', title="delete movie", movie=movie_db, form=form)
 
 
@@ -191,8 +191,7 @@ def handle_404(exception):
 
 
 if __name__ == '__main__':
-    app.config['TRAP_BAD_REQUEST_ERRORS'] = False
     app.config['DEBUG'] = True
     app.run(host='os.environ.get("IP")', 
     port=int(os.environ.get("PORT")),
-     debug=True)
+     debug=False)
