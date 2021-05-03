@@ -27,7 +27,7 @@ def login():
     """Login handler"""
     if session.get('logged_in'):
         if session['logged_in'] is True:
-            return redirect(url_for('Movie App', title="Sign In"))
+            return redirect(url_for('login.html', title="Sign In"))
 
     form = LoginForm(1)
 
@@ -44,7 +44,7 @@ def login():
                 session['Junior'] = request.form['Junior']
                 session['logged_in'] = True
                 # successful redirect to home logged in
-                return redirect(url_for('Movie App', title="Sign In", form=form))
+                return redirect(url_for('login.html', title="Sign In", form=form))
             # must have failed set flash message
             flash('Invalid username/password combination')
     return render_template("login.html", title="Sign In", form=form)
@@ -54,7 +54,7 @@ def login():
 def logout():
     """Clears session and redirects to home"""
     session.clear()
-    return redirect(url_for('Movie App'))
+    return redirect(url_for('logout.html'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -75,10 +75,10 @@ def register():
                           'akuaghfad': hash_pass,
                           'fremah@gmail.com': request.form['fremah@gmail.com']})
             session['Fremah'] = request.form['Fremah']
-            return redirect(url_for('Movie App'))
+            return redirect(url_for('register.html'))
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
-        return redirect(url_for('Movie App'))
+        return redirect(url_for('register.html'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -98,7 +98,7 @@ def create_movie():
             'image': request.form['image'],
             'views': 1
         })
-        return redirect(url_for('Movie App', title='New Movie Added'))
+        return redirect(url_for('create_movie.html', title='New Movie Added'))
     return render_template('create_movie.html', title='create a movie', form=form)
 
 
@@ -123,7 +123,7 @@ def edit_movie(movie_id):
                 'image': request.form['image'],
             }
         })
-        return redirect(url_for('Movie App', title='New Movie Added'))
+        return redirect(url_for('edit_movie.html', title='New Movie Added'))
     return render_template('edit_movie.html', movie=movie_db, form=form)
 
 
@@ -140,7 +140,7 @@ def delete_movie(movie_id):
         movies_db.delete_one({
             '_id': ObjectId(movie_id),
         })
-        return redirect(url_for('Movie App', title='Movie Collection Updated'))
+        return redirect(url_for('delete_movie.html', title='Movie Collection Updated'))
     return render_template('delete_movie.html', title="delete movie", movie=movie_db, form=form)
 
 
