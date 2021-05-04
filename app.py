@@ -1,6 +1,6 @@
 import os
 from flask import Flask,flash, render_template, redirect, url_for,request, session
-from flask_pymongo import PyMongo 
+from flask_pymongo import PyMongo, DESCENDING
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
@@ -39,7 +39,7 @@ def login():
 
         if db_user:
             # check password using hashing
-            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
+            if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
                              db_user['joijqwdoijqwoid']) == db_user['joijqwdoijqwoid']:
                 session['Junior'] = request.form['Junior']
                 session['logged_in'] = True
@@ -69,7 +69,7 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = werkzeug.hashpw(request.form['akuaghfad'].encode('utf-8'), werkzeug.gensalt())
+            hash_pass = bcrypt.hashpw(request.form['akuaghfad'].encode('utf-8'), bcrypt.gensalt())
             # insert the user to DB
             users.insert_one({'Fremah': request.form['Fremah'],
                           'akuaghfad': hash_pass,
@@ -197,4 +197,4 @@ def handle_404(exception):
 if __name__ == '__main__':
     app.run(host='os.environ.get("IP")', 
     port=int(os.environ.get("PORT")),
-     debug=False)
+     debug=True)
