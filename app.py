@@ -79,6 +79,7 @@ def register():
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
         return redirect(url_for('register.html'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
     return render_template('register.html', title='Register', form=form)
 
 
@@ -99,6 +100,7 @@ def create_movie():
             'views': 1
         })
         return redirect(url_for('create_movie.html', title='New Movie Added'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
     return render_template('create_movie.html', title='create a movie', form=form)
 
 
@@ -124,6 +126,7 @@ def edit_movie(movie_id):
             }
         })
         return redirect(url_for('edit_movie.html', title='New Movie Added'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
     return render_template('edit_movie.html', movie=movie_db, form=form)
 
 
@@ -141,6 +144,7 @@ def delete_movie(movie_id):
             '_id': ObjectId(movie_id),
         })
         return redirect(url_for('delete_movie.html', title='Movie Collection Updated'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
     return render_template('delete_movie.html', title="delete movie", movie=movie_db, form=form)
 
 
@@ -191,7 +195,6 @@ def handle_404(exception):
 
 
 if __name__ == '__main__':
-    app.config['DEBUG'] = True
     app.run(host='os.environ.get("IP")', 
     port=int(os.environ.get("PORT")),
      debug=False)
