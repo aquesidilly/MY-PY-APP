@@ -18,7 +18,7 @@ mongo = PyMongo(app)
 @app.route('/index')
 def get_index():
     """Home page the gets 4 movies from DB that have been viewed the most"""
-    four_movies = mongo.db.movies.find()
+    four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
     return render_template('index.html', movies=four_movies)
 
 
