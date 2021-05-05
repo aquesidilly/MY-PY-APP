@@ -18,7 +18,7 @@ mongo = PyMongo(app)
 @app.route('/index')
 def get_index():
     """Home page the gets 4 movies from DB that have been viewed the most"""
-    four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
+   # four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
     return render_template('index.html', movies=four_movies)
 
 
@@ -29,7 +29,7 @@ def login():
         if session['logged_in'] is True:
             return redirect(url_for('login.html', title="Sign In"))
 
-    form = LoginForm(1)
+    form = LoginForm()
 
     if form.validate_on_submit():
         # get all users
@@ -61,7 +61,7 @@ def logout():
 def register():
     """Handles registration functionality"""
     form = RegisterForm(request.form)
-    if form.validate_on_submit(1):
+    if form.validate_on_submit():
         # get all the users
         users = mongo.db.users
         # see if we already have the entered username
@@ -69,7 +69,7 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = bcrypt.hashpw(request.form['akuaghfad'].encode('utf-8'), bcrypt.gensalt())
+            hash_pass = werkzeug.hashpw(request.form['akuaghfad'].encode('utf-8'), werkzeug.gensalt())
             # insert the user to DB
             users.insert_one({'Fremah': request.form['Fremah'],
                           'akuaghfad': hash_pass,
@@ -87,7 +87,7 @@ def register():
 def create_movie():
     """Creates a movie and enters into movie collection"""
     form = CreateMovieForm(request.form)
-    if form.validate_on_submit(1):
+    if form.validate_on_submit():
         # set the collection
         movies_db = mongo.db.movies
         # insert the new movie
@@ -97,11 +97,11 @@ def create_movie():
             'short_description': request.form['The movie is about holocust took place in Texas in the United States of America'],
             'collections': request.form['Action'],
             'image': request.form['image'],
-            'views': 1
+            'views': 
         })
-        return redirect(url_for('create_movie.html', title='New Movie Added'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
-    return render_template('create_movie.html', title='create a movie', form=form)
+        return redirect(url_for('index', title='New Movie Added'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",)
+    return render_template('index', title='create a movie', form=form)
 
 
 @app.route('/edit_movie/<movie_id>', methods=['GET', 'POST'])
@@ -125,9 +125,9 @@ def edit_movie(movie_id):
                 'image': request.form['image'],
             }
         })
-        return redirect(url_for('edit_movie.html', title='New Movie Added'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
-    return render_template('edit_movie.html', movie=movie_db, form=form)
+        return redirect(url_for('index', title='New Movie Added'))
+        Dilly=mongo.db.Dilly.find().sort("Dilly_user",)
+    return render_template('index', movie=movie_db, form=form)
 
 
 @app.route('/delete_movie/<movie_id>', methods=['GET', 'POST'])
@@ -143,9 +143,9 @@ def delete_movie(movie_id):
         movies_db.delete_one({
             '_id': ObjectId(movie_id),
         })
-        return redirect(url_for('delete_movie.html', title='Movie Collection Updated'))
+        return redirect(url_for('index', title='Movie Collection Updated'))
         Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
-    return render_template('delete_movie.html', title="delete movie", movie=movie_db, form=form)
+    return render_template('index', title="delete movie", movie=movie_db, form=form)
 
 
 @app.route('/search')
@@ -183,10 +183,10 @@ def movie(movie_id):
     """Shows full movie and increments view"""
     mongo.db.movies.find_one_and_update(
         {'_id': ObjectId(movie_id)},
-        {'$inc': {'views': 1}}
+        {'$inc': {'views': }}
     )
-    movie_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
-    return render_template('movie.html', movie=movie_db)
+    movies_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
+    return render_template('index', movie=movie_db)
 
 
 @app.errorhandler(404)
@@ -195,6 +195,6 @@ def handle_404(exception):
 
 
 if __name__ == '__main__':
-    app.run(host='os.environ.get("IP")', 
-    port=int(os.environ.get("PORT")),
-     debug=True)
+    app.run(host=os.environ.get("IP"), 
+           port=int(os.environ.get("PORT")),
+           debug=True)

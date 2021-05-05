@@ -38,9 +38,9 @@ class AppTests(AppTestCase):
         assert res.status == '200 OK'
         assert 'Movies' in data
 
-    def test_recipes(self):
+    def test_movies(self):
         """Test movie list page loading"""
-        res = self.client.get('/recipes')
+        res = self.client.get('/movies')
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
         assert 'features' in data
@@ -86,7 +86,7 @@ class AppTests(AppTestCase):
         ))
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
-        assert 'A Glut of Movies' in data
+        assert 'Movie App' in data
 
 
 class LoggedInTests(AppTestCase):
@@ -104,29 +104,25 @@ class LoggedInTests(AppTestCase):
             email='fred3@aol.com',
         ))
         res = self.client.post('/create_movie', follow_redirects=True, data={
-            'title': 'Mac and cheese',
-            'short_description': 'Get this mac and cheese',
-            'ingredients': '8 spring onions',
-            'method': 'Put all the ingredients',
-            'tags': 'cheese, slow',
+            'title': 'Magnificient 7',
+            'short_description': 'The movie is about holocust took place in Texas in the United States of America',
+            'collections': 'Action',
             'image': 'some image link'
         })
         data = res.data.decode('utf-8')
         assert 'fred3' in data
-        assert 'Mac and cheese'
+        assert 'Magnificient 7'
 
     def test_create_movie(self):
         """Create movie and check new movie shows after redirect"""
         res = self.client.post('/create_movie', follow_redirects=True, data={
-            'title': 'Slow - cooker vegan bean chilli',
-            'short_description': 'Get this vegan',
-            'ingredients': '8 spring onions',
-            'method': 'Put all the ingredients',
-            'tags': 'vegan, slow',
+            'title': 'Magnificient 7',
+            'short_description': 'The movie is about holocust took place in Texas in the United States of America',
+            'collections': 'Action',
             'image': 'some image link'
         })
         data = res.data.decode('utf-8')
-        assert 'vegan' in data
+        assert 'Magnificient 7' in data
 
     def test_movie_page(self):
         """Find Movie and go to it's movie page"""
@@ -136,10 +132,10 @@ class LoggedInTests(AppTestCase):
         # check we have something
         assert len(ids) > 0
         # to go that movie page using extracted id
-        res = self.client.get('/recipe/{}'.format(ids[0]))
+        res = self.client.get('/movie/{}'.format(ids[0]))
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
-        assert 'Mac and cheese' in data
+        assert 'Magnificient 7' in data
 
     def test_edit_movie(self):
         """Edit movie and check redirect to home page"""
@@ -149,13 +145,11 @@ class LoggedInTests(AppTestCase):
         res = self.client.get('/edit_movie/{}'.format(ids[0]))
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
-        assert 'Mac and cheese' in data
+        assert 'Equalizer' in data
         res = self.client.post('/edit_movie/'.format(ids[0]), follow_redirects=True, data={
-            'title': 'Mac and cheese',
-            'short_description': 'Get this maccy and cheese',
-            'ingredients': '8 blocks of cheddar',
-            'method': 'Put all the ingredients',
-            'tags': 'cheese, slow',
+            'title': 'Equalizer',
+            'short_description': 'This is a movie which talks about an FBI agent who is on the siege to battle crime',
+            'collections': 'Action and Sizzling',
             'image': 'some image link'
         })
         assert res.status == '200 OK'
@@ -170,4 +164,4 @@ class LoggedInTests(AppTestCase):
         res = self.client.post('/delete_movie/{}'.format(ids[0]), follow_redirects=True)
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
-        assert 'Birdbox' not in data
+        assert 'Magnificient 7' not in data
