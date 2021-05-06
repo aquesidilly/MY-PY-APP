@@ -97,7 +97,7 @@ def create_movie():
             'short_description': request.form['The movie is about holocust took place in Texas in the United States of America'],
             'collections': request.form['Action'],
             'image': request.form['image'],
-            'views': 
+            'views': 1
         })
         return redirect(url_for('index', title='New Movie Added'))
         Dilly=mongo.db.Dilly.find().sort("Dilly_user",)
@@ -183,7 +183,7 @@ def movie(movie_id):
     """Shows full movie and increments view"""
     mongo.db.movies.find_one_and_update(
         {'_id': ObjectId(movie_id)},
-        {'$inc': {'views': }}
+        {'$inc': {'views': 1}}
     )
     movies_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
     return render_template('index', movie=movie_db)
