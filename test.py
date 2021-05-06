@@ -48,10 +48,10 @@ class AppTests(AppTestCase):
     def test_register_mismatch_passwords(self):
         """Check mismatched passwords on the registration form, expecting mismatch message"""
         res = self.client.post('/register', data=dict(
-            username='fred',
+            username='freggie',
             password='joijqwdoijqwoid',
             password2='qoijwdoiqwjdoiqwd',
-            email='fred@aol.com',
+            email='freggie@gmail.com',
         ))
         data = res.data.decode('utf-8')
         assert 'Passwords must match' in data
@@ -59,18 +59,18 @@ class AppTests(AppTestCase):
     def test_register_duplicate_username(self):
         """Check entering a username that is already used returns username is already taken message"""
         res = self.client.post('/register', follow_redirects=True, data=dict(
-            username='fred',
-            password='asdfasdfasdf',
-            password2='asdfasdfasdf',
-            email='fred@aol.com',
+            username='freda',
+            password='asdfasdfasmu',
+            password2='asdfasdfasmu',
+            email='freda@gmail.com',
         ))
         data = res.data.decode('utf-8')
         assert ' Movies' in data
         res = self.client.post('/register', follow_redirects=True, data=dict(
-            username='fred',
-            password='asdfasdfasdf',
-            password2='asdfasdfasdf',
-            email='fred@aol.com',
+            username='freda',
+            password='asdfasdfasvq',
+            password2='asdfasdfasvq',
+            email='freda@gmail.com',
         ))
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
@@ -79,10 +79,10 @@ class AppTests(AppTestCase):
     def test_register_successful(self):
         """Check valid registration redirects to index page"""
         res = self.client.post('/register', follow_redirects=True, data=dict(
-            username='freddie',
-            password='asdfasdfasdf',
-            password2='asdfasdfasdf',
-            email='freddie@aol.com',
+            username='Fremah',
+            password='akuaghfad',
+            password2='akuaghfad',
+            email='fremah@gmail.com',
         ))
         data = res.data.decode('utf-8')
         assert res.status == '200 OK'
@@ -98,10 +98,10 @@ class LoggedInTests(AppTestCase):
         """
         super().setUp()
         res = self.client.post('/register', follow_redirects=True, data=dict(
-            username='fred3',
-            password='asdfasdfasdf',
-            password2='asdfasdfasdf',
-            email='fred3@aol.com',
+            username='Junior',
+            password='joijqwdoijqwoid',
+            password2='joijqwdoijqwoid',
+            email='jnr1015@gmail.com',
         ))
         res = self.client.post('/create_movie', follow_redirects=True, data={
             'title': 'Magnificient 7',
@@ -110,7 +110,7 @@ class LoggedInTests(AppTestCase):
             'image': 'some image link'
         })
         data = res.data.decode('utf-8')
-        assert 'fred3' in data
+        assert 'Kofy1' in data
         assert 'Magnificient 7'
 
     def test_create_movie(self):
