@@ -15,7 +15,7 @@ app = app_module.app
 # Setting up test DB on Mongo and switching CSRF checks off
 app.config["TESTING"] = True
 app.config["WTF_CSRF_ENABLED"] = False
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/movieAPPTesting'
+app.config['MONGO_URI'] = 'mongodb://localhost:5000/movieAPPTesting'
 
 mongo = PyMongo(app)
 app_module.mongo = mongo

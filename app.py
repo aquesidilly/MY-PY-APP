@@ -1,5 +1,6 @@
 import os
 from flask import Flask,flash, render_template, redirect, url_for,request, session
+from forms import LoginForm, RegisterForm, CreateMovieForm, EditMovieForm, ConfirmDelete
 from flask_pymongo import PyMongo, DESCENDING
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
@@ -18,7 +19,7 @@ mongo = PyMongo(app)
 @app.route('/index')
 def get_index():
     """Home page the gets 4 movies from DB that have been viewed the most"""
-   # four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
+    four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
     return render_template('index.html', movies=four_movies)
 
 
@@ -39,7 +40,7 @@ def login():
 
         if db_user:
             # check password using hashing
-            if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
+            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
                              db_user['joijqwdoijqwoid']) == db_user['joijqwdoijqwoid']:
                 session['Junior'] = request.form['Junior']
                 session['logged_in'] = True
@@ -145,7 +146,7 @@ def delete_movie(movie_id):
         })
         return redirect(url_for('index', title='Movie Collection Updated'))
         Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
-    return render_template('index', title="delete movie", movie=movie_db, form=form)
+    return render_template('index', title="delete movie", movie=Dillly_db, form=form)
 
 
 @app.route('/search')
@@ -186,7 +187,7 @@ def movie(movie_id):
         {'$inc': {'views': 1}}
     )
     movies_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
-    return render_template('index', movie=movie_db)
+    return render_template('index', movie=Dillly_db)
 
 
 @app.errorhandler(404)
