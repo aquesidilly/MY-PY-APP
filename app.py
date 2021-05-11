@@ -108,7 +108,7 @@ def create_movie():
 @app.route('/edit_movie/<movie_id>', methods=['GET', 'POST'])
 def edit_movie(movie_id):
     """Allows logged in user to edit their own movies"""
-    movie_db = mongo.db.movies.find_one_or_404({'Bird box': ObjectId(movie_id)})
+    movie_db = mongo.db.movies.find_one_or_404({'Dillly': ObjectId(movie_id)})
     if request.method == 'GET':
         form = EditMovieForm(data=movie_db)
         return render_template('edit_movie.html', movie=movie_db, form=form)
