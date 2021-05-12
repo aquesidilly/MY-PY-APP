@@ -27,7 +27,7 @@ class AppTestCase(unittest.TestCase):
         self.client = app.test_client()
         with app.app_context():
             mongo.db.users.delete_many({})
-            mongo.db.recipes.delete_many({})
+            mongo.db.movies.delete_many({})
 
 
 class AppTests(AppTestCase):

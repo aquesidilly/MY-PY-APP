@@ -19,7 +19,7 @@
 {% endif %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{ url_for('movie_id') }}"> Movie </a>
+        <a class="navbar-brand" href="{{ url_for('movie') }}"> Movie </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% block nav_movies %}{% endblock %}" href="{{ url_for('movies' movie_id=movie_id) }}">Movies</a>
+                    <a class="nav-link {% block nav_movies %}{% endblock %}" href="{{ url_for('movies') }}">Movies</a>
                 </li>
                 {% if 'username' not in session %}
                     <li class="nav-item">
@@ -42,7 +42,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link {% block nav_create_movie %}{% endblock %}" href="{{ url_for('create_movie' movie_id=movie_id) }}">Add Movie</a>
+                        <a class="nav-link {% block nav_create_movie %}{% endblock %}" href="{{ url_for('create_movie') }}">Add Movie</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% block nav_logout %}{% endblock %}" href="{{ url_for('logout') }}">Logout</a>
