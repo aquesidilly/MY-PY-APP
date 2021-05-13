@@ -23,7 +23,7 @@
                         <p class="card-text">{{ movie.short_description }}</p>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ url_for('movie') }}" class="btn btn-primary">Find Out
+                        <a href="{{ url_for('movie',movie_id=movie._id) }}" class="btn btn-primary">Find Out
                             More!</a>
                     </div>
                 </div>
