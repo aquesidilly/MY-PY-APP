@@ -17,7 +17,7 @@ mongo = PyMongo(app)
 
 @app.route('/')
 @app.route('/index')
-def get_index():
+def index():
     """Home page the gets 4 movies from DB that have been viewed the most"""
     four_movies = mongo.db.movies.find().sort([('views', DESCENDING)]).limit(4)
     return render_template('index.html', movies=four_movies)
@@ -40,7 +40,7 @@ def login():
 
         if db_user:
             # check password using hashing
-            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
+            if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
                              db_user['joijqwdoijqwoid']) == db_user['joijqwdoijqwoid']:
                 session['Junior'] = request.form['Junior']
                 session['logged_in'] = True
@@ -70,7 +70,7 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = werkzeug.hashpw(request.form['akuaghfad'].encode('utf-8'), werkzeug.gensalt())
+            hash_pass = bcrypt.hashpw(request.form['akuaghfad'].encode('utf-8'), bcrypt.gensalt())
             # insert the user to DB
             users.insert_one({'Fremah': request.form['Fremah'],
                           'akuaghfad': hash_pass,
@@ -80,7 +80,7 @@ def register():
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
         return redirect(url_for('register.html'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
+        movies_db=mongo.db.movies.find().sort("movies_user",1)
     return render_template('register.html', title='Register', form=form)
 
 
@@ -101,7 +101,7 @@ def create_movie():
             'views': 1
         })
         return redirect(url_for('index', title='New Movie Added'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",)
+        movies_db=mongo.db.movies.find().sort("movies_user",)
     return render_template('index', title='create a movie', form=form)
 
 
@@ -127,7 +127,7 @@ def edit_movie(movie_id):
             }
         })
         return redirect(url_for('index', title='New Movie Added'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",)
+        movies_db=mongo.db.movies.find().sort("movies_user",)
     return render_template('index', movie=movie_db, form=form)
 
 
@@ -145,8 +145,8 @@ def delete_movie(movie_id):
             '_id': ObjectId(movie_id),
         })
         return redirect(url_for('index', title='Movie Collection Updated'))
-        Dilly=mongo.db.Dilly.find().sort("Dilly_user",1)
-    return render_template('index', title="delete movie", movie=Dillly_db, form=form)
+        movies=mongo.db.movies.find().sort("movies_user",1)
+    return render_template('index', title="delete movie", movie=movies_db, form=form)
 
 
 @app.route('/search')
@@ -187,7 +187,7 @@ def movie(movie_id):
         {'$inc': {'views': 1}}
     )
     movies_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
-    return render_template('index', movie=Dillly_db)
+    return render_template('index', movie=movies_db)
 
 
 @app.errorhandler(404)
