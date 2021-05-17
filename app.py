@@ -36,13 +36,13 @@ def login():
         # get all users
         users = mongo.db.users
         # try and get one with same name as entered
-        db_user = users.find_one({'Junior': request.form['Junior']})
+        db_user = users.find_one({'name': request.form['username']})
 
         if db_user:
             # check password using hashing
             if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
-                             db_user['joijqwdoijqwoid']) == db_user['joijqwdoijqwoid']:
-                session['Junior'] = request.form['Junior']
+                             db_user['password']) == db_user['password']:
+                session['username'] = request.form['username']
                 session['logged_in'] = True
                 # successful redirect to home logged in
                 return redirect(url_for('login.html', title="Sign In", form=form))
