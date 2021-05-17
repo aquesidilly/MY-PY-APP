@@ -66,16 +66,16 @@ def register():
         # get all the users
         users = mongo.db.users
         # see if we already have the entered username
-        existing_user = users.find_one({'Fremah': request.form['Fremah']})
+        existing_user = users.find_one({'name': request.form['username']})
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = bcrypt.hashpw(request.form['akuaghfad'].encode('utf-8'), bcrypt.gensalt())
+            hash_pass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             # insert the user to DB
-            users.insert_one({'Fremah': request.form['Fremah'],
-                          'akuaghfad': hash_pass,
-                          'fremah@gmail.com': request.form['fremah@gmail.com']})
-            session['Fremah'] = request.form['Fremah']
+            users.insert_one({'name': request.form['username'],
+                          'password': hash_pass,
+                          'email': request.form['email']})
+            session['username'] = request.form['username']
             return redirect(url_for('register.html'))
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
@@ -93,10 +93,10 @@ def create_movie():
         movies_db = mongo.db.movies
         # insert the new movie
         movies_db.insert_one({
-            'title': request.form['Magnificient 7'],
-            'user': session['Kofy1'],
-            'short_description': request.form['The movie is about holocust took place in Texas in the United States of America'],
-            'collections': request.form['Action'],
+            'title': request.form['title'],
+            'user': session['username'],
+            'short_description': request.form['short_description'],
+            'collections': request.form['collection'],
             'image': request.form['image'],
             'views': 1
         })
