@@ -119,10 +119,10 @@ def edit_movie(movie_id):
             '_id': ObjectId(movie_id),
         }, {
             '$set': {
-                'title': request.form['Equalizer'],
-                'user': session['Kofy1'],
-                'short_description': request.form['This is a movie which talks about an FBI agent who is on the siege to battle crime'],
-                'collections': request.form['Action and sizziling'],
+                'title': request.form['title'],
+                'user': session['username'],
+                'short_description': request.form['short_description'],
+                'collections': request.form['collections'],
                 'image': request.form['image'],
             }
         })
