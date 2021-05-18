@@ -3,6 +3,7 @@ from flask import Flask,flash, render_template, redirect, url_for,request, sessi
 from forms import LoginForm, RegisterForm, CreateMovieForm, EditMovieForm, ConfirmDelete
 from flask_pymongo import PyMongo, DESCENDING
 from bson.objectid import ObjectId
+import bcrypt
 if os.path.exists("env.py"):
     import env
 
@@ -79,7 +80,7 @@ def register():
             return redirect(url_for('register.html'))
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
-        return redirect(url_for('register.html'))
+        return redirect(url_for('register'))
         movies_db=mongo.db.movies.find().sort("movies_user",1)
     return render_template('register.html', title='Register', form=form)
 
