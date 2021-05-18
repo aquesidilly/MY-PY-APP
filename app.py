@@ -40,7 +40,7 @@ def login():
 
         if db_user:
             # check password using hashing
-            if bcrypt.hashpw(request.form['Junior'].encode('utf-8'),
+            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
                              db_user['password']) == db_user['password']:
                 session['username'] = request.form['username']
                 session['logged_in'] = True
@@ -70,7 +70,7 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            hash_pass = werkzeug.hashpw(request.form['password'].encode('utf-8'), werkzeug.gensalt())
             # insert the user to DB
             users.insert_one({'name': request.form['username'],
                           'password': hash_pass,
