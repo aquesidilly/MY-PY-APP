@@ -70,7 +70,7 @@ def register():
 
         if existing_user is None:
             # hash the entered password
-            hash_pass = werkzeug.hashpw(request.form['password'].encode('utf-8'), werkzeug.gensalt())
+            hash_pass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             # insert the user to DB
             users.insert_one({'name': request.form['username'],
                           'password': hash_pass,
