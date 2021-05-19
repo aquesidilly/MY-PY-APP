@@ -77,7 +77,7 @@ def register():
                           'password': hash_pass,
                           'email': request.form['email']})
             session['username'] = request.form['username']
-            return redirect(url_for('register.html'))
+            return redirect(url_for('index'))
         # duplicate username set flash message and reload page
         flash('Sorry, that username is already taken - use another')
         return redirect(url_for('register'))
