@@ -129,7 +129,7 @@ def edit_movie(movie_id):
         })
         return redirect(url_for('index', title='New Movie Added'))
         movies_db=mongo.db.movies.find().sort("movies_user",)
-    return render_template('index', movie=movie_db, form=form)
+    return render_template('edit_movie.html', movie=movie_db, form=form)
 
 
 @app.route('/delete_movie/<movie_id>', methods=['GET', 'POST'])
