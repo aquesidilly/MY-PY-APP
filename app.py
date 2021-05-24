@@ -56,7 +56,7 @@ def login():
 def logout():
     """Clears session and redirects to home"""
     session.clear()
-    return redirect(url_for('logout.html'))
+    return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
