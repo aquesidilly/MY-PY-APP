@@ -41,7 +41,7 @@ def login():
 
         if db_user:
             # check password using hashing
-            if werkzeug.hashpw(request.form['Junior'].encode('utf-8'),
+            if werkzeug.hashpw(request.form['password'].encode('utf-8'),
                              db_user['password']) == db_user['password']:
                 session['username'] = request.form['username']
                 session['logged_in'] = True
