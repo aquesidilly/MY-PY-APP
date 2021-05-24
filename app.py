@@ -46,7 +46,7 @@ def login():
                 session['username'] = request.form['username']
                 session['logged_in'] = True
                 # successful redirect to home logged in
-                return redirect(url_for('login.html', title="Sign In", form=form))
+                return redirect(url_for('index', title="Sign In", form=form))
             # must have failed set flash message
             flash('Invalid username/password combination')
     return render_template("login.html", title="Sign In", form=form)
