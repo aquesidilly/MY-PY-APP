@@ -30,9 +30,9 @@
         <div class="row">
             <div class="col-4">
                 <p>
-                    {{ form.ingredients.label }}<br>
-                    {{ form.ingredients(cols="40", rows="16") }}
-                    {% for error in form.ingredients.errors %}
+                    {{ form.collections.label }}<br>
+                    {{ form.collections(cols="40", rows="16") }}
+                    {% for error in form.collections.errors %}
                         <span style="color: red;">{{ error }}</span>
                     {% endfor %}
                 </p>
