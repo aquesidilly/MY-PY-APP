@@ -147,7 +147,7 @@ def delete_movie(movie_id):
         })
         return redirect(url_for('index', title='Movie Collection Updated'))
         movies=mongo.db.movies.find().sort("movies_user",1)
-    return render_template('index', title="delete movie", movie=movies_db, form=form)
+    return render_template('delete_movie.html', title="delete movie", movie=movies_db, form=form)
 
 
 @app.route('/search')
@@ -188,7 +188,7 @@ def movie(movie_id):
         {'$inc': {'views': 1}}
     )
     movies_db = mongo.db.movies.find_one_or_404({'_id': ObjectId(movie_id)})
-    return render_template('index', movie=movies_db)
+    return render_template('movie.html', movie=movies_db)
 
 
 @app.errorhandler(404)
