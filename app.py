@@ -103,7 +103,7 @@ def create_movie():
         })
         return redirect(url_for('index', title='New Movie Added'))
         movies_db=mongo.db.movies.find().sort("movies_user",)
-    return render_template('index', title='create a movie', form=form)
+    return render_template('create_movie.html', title='create a movie', form=form)
 
 
 @app.route('/edit_movie/<movie_id>', methods=['GET', 'POST'])
