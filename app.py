@@ -4,6 +4,7 @@ from forms import LoginForm, RegisterForm, CreateMovieForm, EditMovieForm, Confi
 from flask_pymongo import PyMongo, DESCENDING
 from bson.objectid import ObjectId
 import bcrypt
+import re
 if os.path.exists("env.py"):
     import env
 
