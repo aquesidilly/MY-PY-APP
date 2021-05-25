@@ -100,7 +100,6 @@ def create_movie():
             'user': session['username'],
             'short_description': request.form['short_description'],
             'collections': request.form['collection'],
-            'image': request.form['image'],
             'views': 1
         })
         return redirect(url_for('index', title='New Movie Added'))
