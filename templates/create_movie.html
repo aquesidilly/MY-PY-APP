@@ -37,23 +37,9 @@
                     {% endfor %}
                 </p>
             </div>
-            <div class="col-8">
-                <p>
-                    {{ form.method.label }}<br>
-                    {{ form.method(cols="80", rows="16") }}
-                    {%  for error in form.method.errors %}
-                        <span style="color: red;">{{ error }}</span>
-                    {% endfor %}
-                </p>
-            </div>
+           
         </div>
-        <p>
-            {{ form.tags.label }}<br>
-            {{ form.tags(size=80) }}<br>
-            {%  for error in form.tags.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </p>
+    
         <p>
             {{ form.image.label }}<br>
             {{ form.image(size=80) }}<br>
