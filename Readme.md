@@ -1,7 +1,7 @@
 # Project 4 - Movie-App
 The Movie-App Finder does exactly what it says on the app. It's a place where users can create and view Movies. The live Website can be found here.
 
-A live preview of the website can be found [Here](https://aquesidilly-MY-PY-APP.herokuapp.com/) 
+A live preview of the website can be found [Here](https://https://aquesidilly.herokuapp.com/) 
 
 
 # Table of Contents
