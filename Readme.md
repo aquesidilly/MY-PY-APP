@@ -12,7 +12,6 @@ A live preview of the website can be found [Here](https://https://aquesidilly.he
  - The Scope Plane
  - The Structure Plane
  - The Skeleton Plane
-   * Wireframes
    * Database Design
    * Security
  - The Surface Plane
