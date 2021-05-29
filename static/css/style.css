@@ -14,3 +14,68 @@ h1{
   background-image:url("../images/bg2.jpg");
   background-size: cover;
 }
+/* Media Queries */
+
+/* Media Query for background image on large screens */
+@media only screen and (min-width: 1000px) {
+  main {
+        background-image: url("../images/background-img.jpg");
+        width: 100%;
+        height: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-size: cover;
+    }
+}
+
+/* Media Query to make heading text bigger on larger screen sizes */
+@media only screen and (min-width: 655px) {
+    .main-heading {
+        font-size: 4rem;
+    }
+}
+
+/* Media Query to make event headings text bigger on larger screen sizes */
+@media only screen and (min-width: 700px) {
+    .event-header {
+        font-size: 2.75rem;
+    }
+}
+
+/* Media Query to make event sub text bigger on larger screen sizes */
+@media only screen and (min-width: 700px) {
+    .event-sub {
+        font-size: 1.5rem;
+    }
+}
+
+/* Media Query to make error nav header text display on medium screen sizes */
+@media only screen and (min-width: 465px) {
+    .error-heading {
+        display: block;
+        font-size: 2rem;
+        color: #831717;
+        text-shadow: 3px 2px 1px rgba(150, 150, 150, 1);
+        text-align: right;
+        padding-right: 5px;
+    }
+}
+
+/* Media Query to make error nav header text bigger and centered on larger screen sizes */
+@media only screen and (min-width: 750px) {
+    .error-heading {
+        font-size: 3rem;
+        color: #831717;
+        text-shadow: 3px 2px 1px rgba(150, 150, 150, 1);
+        text-align: center;
+    }
+}
+
+/* Media Query to make email confirmation message larger on bigger screen sizes */
+@media only screen and (min-width: 500px) {
+    .email-response {
+        font-size: 1rem;
+        font-weight: bolder;
+        margin-bottom: 1rem;
+    }
+}
